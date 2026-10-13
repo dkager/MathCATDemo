@@ -3,7 +3,8 @@ name: Deploy GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: [main, ueb-parser]
+    # nl: demo with the Dedicon braille code, built against dkager/MathCAT branch nl (deployed to the site root)
+    branches: [main, ueb-parser, nl]
   # Fired by daisy/MathCAT after a successful braille-parser build (see MathCAT rust.yml).
   repository_dispatch:
     types: [braille-parser-updated]
@@ -34,9 +35,9 @@ jobs:
       - name: Checkout MathCAT
         uses: actions/checkout@v4
         with:
-          repository: daisy/MathCAT
+          repository: dkager/MathCAT
           # Input demo builds against braille-parser; main site uses MathCAT main.
-          ref: ${{ (github.ref_name == 'ueb-parser' || github.event_name == 'repository_dispatch') && 'braille-parser' || 'main' }}
+          ref: nl
           path: MathCAT
 
       - name: Install Rust toolchain

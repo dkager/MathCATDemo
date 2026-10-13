@@ -396,7 +396,7 @@ impl Component for Model {
             nav_id: String::default(),
             nav_offset: 0,
             braille_dots78: "EndPoints".to_string(),
-            braille_code: "Nemeth".to_string(),
+            braille_code: "Dedicon".to_string(),
             supported_braille_codes: Vec::new(),
             braille_display_as: "Dots".to_string(),
             braille: String::default(),
