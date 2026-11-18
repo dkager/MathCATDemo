@@ -38,19 +38,27 @@ jobs:
               echo "public_url=/MathCATDemo/" >> "$GITHUB_OUTPUT"
               echo "destination=root" >> "$GITHUB_OUTPUT"
               ;;
+            nl)
+              # Dedicon braille demo, built against dkager/MathCAT branch nl.
+              echo "mathcat_branch=nl" >> "$GITHUB_OUTPUT"
+              echo "public_url=/MathCATDemo/" >> "$GITHUB_OUTPUT"
+              echo "destination=root" >> "$GITHUB_OUTPUT"
+              ;;
             braille-parser)
               echo "mathcat_branch=braille-parser" >> "$GITHUB_OUTPUT"
               echo "public_url=/MathCATDemo/input/" >> "$GITHUB_OUTPUT"
               echo "destination=input" >> "$GITHUB_OUTPUT"
               ;;
             *)
-              echo "Run this workflow from main or braille-parser (got: $REF_NAME)." >&2
+              echo "Run this workflow from main, braille-parser or nl (got: $REF_NAME)." >&2
               exit 1
               ;;
           esac
 
       - name: Find latest successful MathCAT build
         id: mathcat
+        # nl builds against dkager/MathCAT, not daisy/MathCAT.
+        if: github.ref_name != 'nl'
         env:
           BRANCH: ${{ steps.target.outputs.mathcat_branch }}
           GH_TOKEN: ${{ github.token }}
